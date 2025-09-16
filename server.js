@@ -20,7 +20,7 @@ app.post("/groq", async (req, res) => {
     const response = await axios.post(
       GROQ_API_URL,
       {
-        model: "llama-3-8b-8192", // switched from Mixtral
+        model: "llama-3.1-8b-instant",
         messages: [
           {
             role: "system",
@@ -30,6 +30,7 @@ app.post("/groq", async (req, res) => {
           { role: "user", content: text },
         ],
         temperature: 0,
+        response_format: { type: "json_object" }, // ✅ forces JSON
       },
       {
         headers: {
@@ -39,12 +40,10 @@ app.post("/groq", async (req, res) => {
       }
     );
 
-    let extracted = {};
-    try {
-      extracted = JSON.parse(response.data.choices[0].message.content);
-    } catch {
-      extracted = { jobTitle: null, company: null };
-    }
+    // response is guaranteed JSON
+    const extracted = response.data.choices[0].message?.content
+      ? JSON.parse(response.data.choices[0].message.content)
+      : { jobTitle: null, company: null };
 
     res.json(extracted);
   } catch (err) {
