@@ -1,36 +1,57 @@
 // server.js
 import express from "express";
 import axios from "axios";
-import dotenv from "dotenv";
-
-dotenv.config();
+import bodyParser from "body-parser";
 
 const app = express();
-app.use(express.json());
+app.use(bodyParser.json());
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const GROQ_API_KEY = process.env.GROQ_API_KEY; // set in Railway
 
-// Proxy route for your Chrome extension
 app.post("/groq", async (req, res) => {
   try {
-    const response = await axios.post(GROQ_API_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(req.body), // forward body from extension
-    });
+    const { text } = req.body;
 
-    const data = await response.json();
-    res.json(data);
+    if (!text) {
+      return res.status(400).json({ error: "Missing text input" });
+    }
+
+    const response = await axios.post(
+      GROQ_API_URL,
+      {
+        model: "mixtral-8x7b-32768",
+        messages: [
+          {
+            role: "system",
+            content:
+              'Extract job title and company name from the given text. Always respond with valid JSON only, in the format: {"jobTitle": "...", "company": "..."}.',
+          },
+          { role: "user", content: text },
+        ],
+        temperature: 0,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${GROQ_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    let extracted = {};
+    try {
+      extracted = JSON.parse(response.data.choices[0].message.content);
+    } catch {
+      extracted = { jobTitle: null, company: null };
+    }
+
+    res.json(extracted);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Proxy request failed" });
+    console.error("Proxy error:", err.response?.data || err.message);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Proxy server running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Proxy running on port ${PORT}`));
