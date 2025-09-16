@@ -20,12 +20,12 @@ app.post("/groq", async (req, res) => {
     const response = await axios.post(
       GROQ_API_URL,
       {
-        model: "mixtral-8x7b-32768",
+        model: "llama-3-8b-8192", // switched from Mixtral
         messages: [
           {
             role: "system",
             content:
-              'Extract job title and company name from the given text. Always respond with valid JSON only, in the format: {"jobTitle": "...", "company": "..."}.',
+              'Extract job title and company name from the given text. Always respond with valid JSON only, in the format: {"jobTitle": "...", "company": "..."}',
           },
           { role: "user", content: text },
         ],
@@ -48,8 +48,10 @@ app.post("/groq", async (req, res) => {
 
     res.json(extracted);
   } catch (err) {
-    console.error("Proxy error:", err.response?.data || err.message);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Proxy error:", err.response?.data || err.message, err.stack);
+    res
+      .status(500)
+      .json({ error: err.response?.data || err.message || "Internal error" });
   }
 });
 
