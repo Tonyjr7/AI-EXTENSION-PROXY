@@ -23,46 +23,6 @@ A Chrome browser extension that uses AI to extract job information from web page
 
 ---
 
-## 🔄 Flow Diagram
-
-User on job page
-       │
-       ▼
-┌------------------┐
-│  Chrome popup    │
-└--------┬---------┘
-         ▼
-┌------------------┐
-│  content.js      │  scrape DOM
-└--------┬---------┘
-         ▼
-┌------------------┐
-│ background.js    │
-└--------┬---------┘
-         ▼
-┌------------------┐
-│ Railway proxy    │  POST /groq
-└--------┬---------┘
-         ▼
-┌------------------┐
-│ Groq API         │  Llama 3.1
-└--------┬---------┘
-         ▼
-┌------------------┐
-│ background.js    │  receive JSON
-└--------┬---------┘
-         ▼
-┌------------------┐
-│ Google Apps      │  POST
-│ Script Web App   │
-└--------┬---------┘
-         ▼
-┌------------------┐
-│ Google Sheet     │  new row
-└------------------┘
-
----
-
 ## 🔧 Installation & Setup
 
 ### 1. Clone the Repository
