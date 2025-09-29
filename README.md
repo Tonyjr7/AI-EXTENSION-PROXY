@@ -23,6 +23,7 @@ A Chrome browser extension that uses AI to extract job information from web page
 
 ---
 
+<pre>
 ## 🔄 Flow Diagram
 ```mermaid
 flowchart TD
@@ -41,6 +42,8 @@ flowchart TD
 
     style H fill:#f9f,stroke:#333
     style L fill:#bbf,stroke:#333
+```
+</pre>
 
 ---
 
