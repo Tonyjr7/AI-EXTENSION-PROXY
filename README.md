@@ -23,27 +23,43 @@ A Chrome browser extension that uses AI to extract job information from web page
 
 ---
 
-<pre>
 ## 🔄 Flow Diagram
-```mermaid
-flowchart TD
-    A([User on Job Page]) -->|Clicks Save Job| B[Chrome Extension Popup]
-    B --> C[content.js<br>Scrape DOM]
-    C --> D{Extracted Job Text}
-    D --> E[background.js]
-    E --> F[POST → Railway Proxy<br>/groq endpoint]
-    F --> G[server.js<br>Adds Groq API Key]
-    G --> H[Groq API<br>Llama 3.1 Model]
-    H --> I[JSON Response<br>jobTitle, company]
-    I --> J[background.js]
-    J --> K[POST → Google Apps Script]
-    K --> L[Google Sheet<br>Append Row]
-    L --> M([Success → Popup UI])
 
-    style H fill:#f9f,stroke:#333
-    style L fill:#bbf,stroke:#333
-```
-</pre>
+User on job page
+       │
+       ▼
+┌------------------┐
+│  Chrome popup    │
+└--------┬---------┘
+         ▼
+┌------------------┐
+│  content.js      │  scrape DOM
+└--------┬---------┘
+         ▼
+┌------------------┐
+│ background.js    │
+└--------┬---------┘
+         ▼
+┌------------------┐
+│ Railway proxy    │  POST /groq
+└--------┬---------┘
+         ▼
+┌------------------┐
+│ Groq API         │  Llama 3.1
+└--------┬---------┘
+         ▼
+┌------------------┐
+│ background.js    │  receive JSON
+└--------┬---------┘
+         ▼
+┌------------------┐
+│ Google Apps      │  POST
+│ Script Web App   │
+└--------┬---------┘
+         ▼
+┌------------------┐
+│ Google Sheet     │  new row
+└------------------┘
 
 ---
 
