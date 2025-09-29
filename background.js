@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         // 1. Call proxy
         const aiRes = await fetch(
-          "https://ai-extension-proxy-production.up.railway.app/groq",
+          "Your deployed API Base URL/groq goes here",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         // 2. Send extracted data to Google Apps Script
         console.log("📡 Sending to Google Sheets...");
         const sheetRes = await fetch(
-          "https://script.google.com/macros/s/AKfycbzl407DQS0K11sVWs61M62jMCLbLR_I-9yeMFYHOClrbNSlN_TbQbb0Ojmokd7vVHPS/exec",
+          "Your Deployed App Script URL goes here",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -50,3 +50,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true; // async
   }
 });
+
