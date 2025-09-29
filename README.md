@@ -23,6 +23,23 @@ A Chrome browser extension that uses AI to extract job information from web page
 
 ---
 
+---
+
+# 🔄 Flow Diagram
+
+```mermaid
+flowchart TD
+    A[Job Posting Page] --> B[content.js: Extract job description]
+    B --> C[background.js: Send data to Proxy Server]
+    C --> D[server.js: Node.js Proxy]
+    D --> E[Groq AI API: Extract Job Title + Company]
+    E --> D
+    D --> F[background.js: Receive structured data]
+    F --> G[Google Apps Script]
+    G --> H[Google Sheets: Save (Timestamp, Job, Company, URL)]
+
+---
+
 ## 🔧 Installation & Setup
 
 ### 1. Clone the Repository
