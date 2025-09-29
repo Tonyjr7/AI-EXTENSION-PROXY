@@ -27,14 +27,33 @@ A Chrome browser extension that uses AI to extract job information from web page
 
 ```mermaid
 flowchart TD
-    A[Job Posting Page] --> B[content.js: Extract job description]
-    B --> C[background.js: Send data to Proxy Server]
-    C --> D[server.js: Node.js Proxy]
-    D --> E[Groq AI API: Extract Job Title + Company]
-    E --> D
-    D --> F[background.js: Receive structured data]
-    F --> G[Google Apps Script]
-    G --> H[Google Sheets: Save job data]
+    A([🧑 User on Job Page]) -->|Clicks "Save Job"| B[[🔌 Chrome Extension Popup]]
+    B --> C[[📝 content.js<br>Scrape DOM]]
+    C --> D{Extracted Job Text}
+    D --> E[[⚙️ background.js]]
+    E --> F[📡 POST → Railway Proxy<br>`/groq` endpoint]
+    F --> G[[🌐 server.js<br>Adds Groq API Key]]
+    G --> H[[🤖 Groq API<br>Llama 3.1 Model]]
+    H --> I[[📦 JSON Response<br>{jobTitle, company}]]
+    I --> J[[⚙️ background.js]]
+    J --> K[📡 POST → Google Apps Script]
+    K --> L[[📊 Google Sheet<br>Append Row]]
+    L --> M([✅ Success → Popup UI])
+
+    %% Styling
+    style A fill:#fff,stroke:#555,stroke-width:1px
+    style B fill:#e0f7fa,stroke:#0288d1,stroke-width:2px
+    style C fill:#f1f8e9,stroke:#388e3c,stroke-width:2px
+    style D fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
+    style E fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style F fill:#ffe0b2,stroke:#f57c00,stroke-width:2px
+    style G fill:#ede7f6,stroke:#5e35b1,stroke-width:2px
+    style H fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    style I fill:#d1c4e9,stroke:#4527a0,stroke-width:2px
+    style J fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style K fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style L fill:#bbdefb,stroke:#1565c0,stroke-width:2px
+    style M fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
 
 ---
 
