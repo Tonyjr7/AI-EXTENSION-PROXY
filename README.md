@@ -36,7 +36,7 @@ flowchart TD
     E --> D
     D --> F[background.js: Receive structured data]
     F --> G[Google Apps Script]
-    G --> H[Google Sheets: Save (Timestamp, Job, Company, URL)]
+    G --> H[Google Sheets: Save job data]
 
 ---
 
