@@ -23,8 +23,8 @@ A Chrome browser extension that uses AI to extract job information from web page
 
 ---
 
-# 🔄 Flow Diagram
-
+## 🔄 Flow Diagram
+```mermaid
 flowchart TD
     A([User on Job Page]) -->|Clicks Save Job| B[Chrome Extension Popup]
     B --> C[content.js<br>Scrape DOM]
@@ -41,6 +41,7 @@ flowchart TD
 
     style H fill:#f9f,stroke:#333
     style L fill:#bbf,stroke:#333
+
 ---
 
 ## 🔧 Installation & Setup
