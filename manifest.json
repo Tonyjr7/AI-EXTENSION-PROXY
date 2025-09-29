@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "Job Tracker Popup",
+  "version": "1.0",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": [
+    "*://*/*",
+    "https://ai-extension-proxy-production.up.railway.app/*",
+    "https://script.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Job Tracker"
+  }
+}

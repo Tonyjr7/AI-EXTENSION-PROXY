@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: "Inter", "Segoe UI", sans-serif;
+        width: 300px;
+        padding: 20px;
+        background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+        color: #e0e0ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card {
+        width: 100%;
+        padding: 20px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      }
+
+      button {
+        background: linear-gradient(135deg, #6a5acd, #00e6e6, #ff4ecd);
+        background-size: 300% 300%;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.4s ease;
+        box-shadow: 0 0 12px rgba(255, 78, 205, 0.6),
+          0 0 20px rgba(0, 230, 230, 0.4);
+        animation: gradientShift 6s ease infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      button:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 0 18px rgba(255, 78, 205, 0.8),
+          0 0 28px rgba(0, 230, 230, 0.6);
+      }
+
+      button:active {
+        transform: scale(0.97);
+      }
+
+      #status {
+        margin-top: 15px;
+        font-size: 13px;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(255, 78, 205, 0.08);
+        border: 1px solid rgba(255, 78, 205, 0.3);
+        color: #b6f5ff;
+        display: none;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <button id="saveBtn">
+        <svg viewBox="0 0 24 24">
+          <path d="M2 16l6 6 2-8 8-8-8 2-8-2zM14 10l4 4M14 10l4-4" />
+        </svg>
+        Save Job
+      </button>
+      <div id="status">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M20 6L9 17l-5-5"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+          />
+        </svg>
+        Let's save some Jobs on-chain!
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
