@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_API_KEY = process.env.GROQ_API_KEY; // set in Railway
+const GROQ_API_KEY = process.env.GROQ_API_KEY; 
 
 app.post("/groq", async (req, res) => {
   try {
@@ -30,7 +30,7 @@ app.post("/groq", async (req, res) => {
           { role: "user", content: text },
         ],
         temperature: 0,
-        response_format: { type: "json_object" }, // ✅ forces JSON
+        response_format: { type: "json_object" }, // forces JSON
       },
       {
         headers: {
